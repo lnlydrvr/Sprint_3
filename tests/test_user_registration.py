@@ -1,14 +1,15 @@
 import pytest
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from helpers import generate_name, generate_login, generate_valid_password, generate_invalid_password
-from locators import WebsiteLocators
+from src.helpers import generate_name, generate_login, generate_valid_password, generate_invalid_password
+from src.locators import WebsiteLocators
+import src.data as data
 
 class TestUserRegistration:
 
-    def test_successful_registration(self, driver_chrome, website_urls):
+    def test_successful_registration(self, driver_chrome):
         driver = driver_chrome
-        driver.get(website_urls['register_page_url'])
+        driver.get(data.register_page_url)
         wait = WebDriverWait(driver, 60)
 
         # Вводим сгенерированное имя для регистрации в поле
@@ -31,9 +32,9 @@ class TestUserRegistration:
         login_button = wait.until(EC.presence_of_element_located(WebsiteLocators.LOGIN_BUTTON_FORM))
         assert login_button.is_displayed()
 
-    def test_registration_with_invalid_password(self, driver_chrome, website_urls):
+    def test_registration_with_invalid_password(self, driver_chrome):
         driver = driver_chrome
-        driver.get(website_urls['register_page_url'])
+        driver.get(data.register_page_url)
         wait = WebDriverWait(driver, 60)
 
         # Вводим сгенерированное имя для регистрации в поле
